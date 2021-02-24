@@ -19,6 +19,8 @@ App = {
         if (typeof web3 !== 'undefined') {
         App.web3Provider = web3.currentProvider
         web3 = new Web3(web3.currentProvider)
+        web3.eth.defaultAccount = web3.eth.accounts[0]
+//personal.unlockAccount(web3.eth.defaultAccount)
         } else {
         window.alert("Please connect to Metamask.")
         }
@@ -48,6 +50,7 @@ App = {
     },
 
     loadAccount: async() =>{
+      console.log(web3.eth.accounts)
 
         App.account = web3.eth.accounts[0]//ACCOUNT CONNECTED TO IN METAMASK //
         console.log(App.account)
@@ -133,6 +136,14 @@ App = {
       $newTaskTemplate.show()
     }
   },
+  createTask: async()=>{
+
+    App.setLoading(true)
+    const content = $('#newTask').val()
+    await App.todoList.createTask(content)
+    window.location.reload()
+
+  }
 
      
 

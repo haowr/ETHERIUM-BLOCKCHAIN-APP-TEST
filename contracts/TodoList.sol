@@ -20,6 +20,13 @@ contract TodoList{
 
     // create state variable //
     mapping(uint => Task) public tasks;
+
+    event TaskCreated(
+        uint id,
+        string content,
+        bool completed
+
+    );
     // now we have a way to create new tasks and place them in the database..//
     constructor() public {
 
@@ -32,6 +39,10 @@ contract TodoList{
 
         taskCount ++;
         tasks[taskCount] = Task(taskCount,_content,false);
+        //BROADCAST AN EVENT THAT THE TASK WAS CREATED // 
+        emit TaskCreated(taskCount,_content,false);
+
 
     }
+
 }
